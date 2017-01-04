@@ -1,0 +1,31 @@
+{
+  "generator-jhipster": {
+    "jhipsterVersion": "3.12.2",
+    "baseName": "wallavic",
+    "packageName": "com.upm.wallavic",
+    "packageFolder": "com/upm/wallavic",
+    "serverPort": "8080",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "buildTool": "maven",
+    "enableSocialSignIn": false,
+    "rememberMeKey": "531a5ff4006ef72de7f56d3fad5d54cca0e68a0b",
+    "useSass": true,
+    "applicationType": "monolith",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "es",
+    "languages": [
+      "es",
+      "en"
+    ]
+  }
+}
