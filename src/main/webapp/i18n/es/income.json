@@ -1,0 +1,24 @@
+{
+    "wallavicApp": {
+        "income" : {
+            "home": {
+                "title": "Incomes",
+                "createLabel": "Crear nuevo Income",
+                "createOrEditLabel": "Crear o editar Income",
+                "search": "Search for Income"
+            },
+            "created": "Un nuevo Income ha sido creado con el identificador {{ param }}",
+            "updated": "Un Income ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Income ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Income {{ id }}?"
+            },
+            "detail": {
+                "title": "Income"
+            },
+            "amount": "Amount",
+            "date": "Date",
+            "user": "User"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "wallavicApp": {
+        "ProductCat" : {
+            "null": "",
+            "Sport": "Sport",
+            "Gaming": "Gaming",
+            "Technology": "Technology",
+            "Home": "Home",
+            "Tools": "Tools",
+            "Clothes": "Clothes",
+            "Garden": "Garden"
+        }
+    }
+}

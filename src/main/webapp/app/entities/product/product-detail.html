@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span data-translate="wallavicApp.product.detail.title">Product</span> {{vm.product.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="wallavicApp.product.cat">Cat</span></dt>
+        <dd>
+            <span data-translate="{{'wallavicApp.ProductCat.' + vm.product.cat}}">{{vm.product.cat}}</span>
+        </dd>
+        <dt><span data-translate="wallavicApp.product.description">Description</span></dt>
+        <dd>
+            <span>{{vm.product.description}}</span>
+        </dd>
+        <dt><span data-translate="wallavicApp.product.uploadDate">Upload Date</span></dt>
+        <dd>
+            <span>{{vm.product.uploadDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="wallavicApp.product.price">Price</span></dt>
+        <dd>
+            <span>{{vm.product.price}}</span>
+        </dd>
+        <dt><span data-translate="wallavicApp.product.url">Url</span></dt>
+        <dd>
+            <span>{{vm.product.url}}</span>
+        </dd>
+        <dt><span data-translate="wallavicApp.product.user">User</span></dt>
+        <dd>
+            {{vm.product.user.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="product-detail.edit({id:vm.product.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

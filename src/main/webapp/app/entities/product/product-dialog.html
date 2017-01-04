@@ -1,0 +1,92 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myProductLabel" data-translate="wallavicApp.product.home.createOrEditLabel">Create or edit a Product</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.product.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.product.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wallavicApp.product.cat" for="field_cat">Cat</label>
+            <select class="form-control" name="cat" ng-model="vm.product.cat" id="field_cat" required>
+                <option value="Sport" data-translate="wallavicApp.ProductCat.Sport">Sport</option>
+                <option value="Gaming" data-translate="wallavicApp.ProductCat.Gaming">Gaming</option>
+                <option value="Technology" data-translate="wallavicApp.ProductCat.Technology">Technology</option>
+                <option value="Home" data-translate="wallavicApp.ProductCat.Home">Home</option>
+                <option value="Tools" data-translate="wallavicApp.ProductCat.Tools">Tools</option>
+                <option value="Clothes" data-translate="wallavicApp.ProductCat.Clothes">Clothes</option>
+                <option value="Garden" data-translate="wallavicApp.ProductCat.Garden">Garden</option>
+            </select>
+            <div ng-show="editForm.cat.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.cat.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wallavicApp.product.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.product.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wallavicApp.product.uploadDate" for="field_uploadDate">Upload Date</label>
+                <div class="input-group">
+                    <input id="field_uploadDate" type="text" class="form-control" name="uploadDate" datetime-picker="{{dateformat}}" ng-model="vm.product.uploadDate" is-open="vm.datePickerOpenStatus.uploadDate"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('uploadDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wallavicApp.product.price" for="field_price">Price</label>
+            <input type="number" class="form-control" name="price" id="field_price"
+                    ng-model="vm.product.price"
+                    required min="0.01" />
+            <div ng-show="editForm.price.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.price.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.price.$error.min" data-translate="entity.validation.min" translate-value-min="0.01">
+                    This field should be more than 0.01.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.price.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wallavicApp.product.url" for="field_url">Url</label>
+            <input type="text" class="form-control" name="url" id="field_url"
+                    ng-model="vm.product.url"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="wallavicApp.product.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.product.user" ng-options="user as user.login for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
