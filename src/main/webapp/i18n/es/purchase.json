@@ -1,0 +1,24 @@
+{
+    "wallavicApp": {
+        "purchase" : {
+            "home": {
+                "title": "Purchases",
+                "createLabel": "Crear nuevo Purchase",
+                "createOrEditLabel": "Crear o editar Purchase",
+                "search": "Search for Purchase"
+            },
+            "created": "Un nuevo Purchase ha sido creado con el identificador {{ param }}",
+            "updated": "Un Purchase ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Purchase ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Purchase {{ id }}?"
+            },
+            "detail": {
+                "title": "Purchase"
+            },
+            "date": "Date",
+            "user": "User",
+            "product": "Product"
+        }
+    }
+}
