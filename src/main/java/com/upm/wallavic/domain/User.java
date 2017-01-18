@@ -69,6 +69,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private String activationKey;
 
+    @Column(name = "money")
+    private Double money;
+
     @Size(max = 20)
     @Column(name = "reset_key", length = 20)
     private String resetKey;
@@ -89,6 +92,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PersistentToken> persistentTokens = new HashSet<>();
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
 
     public Long getId() {
         return id;
@@ -195,6 +206,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -221,13 +234,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-            "login='" + login + '\'' +
+            "id=" + id +
+            ", login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
-            ", activated='" + activated + '\'' +
+            ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
-            "}";
+            ", money=" + money +
+            '}';
     }
 }

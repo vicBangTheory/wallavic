@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('product', {
-            parent: 'entity',
+            parent: 'app',
             url: '/product',
             data: {
                 authorities: ['ROLE_USER'],
@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/product/products.html',
+                    templateUrl: 'app/items/products.html',
                     controller: 'ProductController',
                     controllerAs: 'vm'
                 }
@@ -33,7 +33,7 @@
             }
         })
         .state('product-detail', {
-            parent: 'entity',
+            parent: 'app',
             url: '/product/{id}',
             data: {
                 authorities: ['ROLE_USER'],
@@ -41,7 +41,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/product/product-detail.html',
+                    templateUrl: 'app/items/product-detail.html',
                     controller: 'ProductDetailController',
                     controllerAs: 'vm'
                 }
@@ -73,7 +73,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/product/product-dialog.html',
+                    templateUrl: 'app/items/product-dialog.html',
                     controller: 'ProductDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -98,7 +98,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/product/product-dialog.html',
+                    templateUrl: 'app/items/product-dialog.html',
                     controller: 'ProductDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -111,6 +111,7 @@
                                 uploadDate: null,
                                 price: null,
                                 url: null,
+                                sold: false,
                                 id: null
                             };
                         }
@@ -130,7 +131,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/product/product-dialog.html',
+                    templateUrl: 'app/items/product-dialog.html',
                     controller: 'ProductDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -155,7 +156,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/product/product-delete-dialog.html',
+                    templateUrl: 'app/items/product-delete-dialog.html',
                     controller: 'ProductDeleteController',
                     controllerAs: 'vm',
                     size: 'md',

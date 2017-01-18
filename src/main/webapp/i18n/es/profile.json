@@ -1,0 +1,17 @@
+{
+	"profile": {
+		"title": "Bienvenido ",
+		"form": {
+			"login": "Login",
+			"firstname": "Nombre",
+			"lastname": "Apellidos",
+			"email": "Correo electronico",
+			"money": "Dinero disponible"
+		},
+		"button": {
+			"money": "Realizar ingreso",
+			"password": "Cambiar constraseña",
+			"settings": "Cambiar datos de usuario"
+		}
+	}
+}

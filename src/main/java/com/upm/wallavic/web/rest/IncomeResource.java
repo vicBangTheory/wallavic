@@ -3,6 +3,7 @@ package com.upm.wallavic.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.upm.wallavic.domain.Income;
 import com.upm.wallavic.service.IncomeService;
+import com.upm.wallavic.service.ManageIncomeService;
 import com.upm.wallavic.web.rest.util.HeaderUtil;
 import com.upm.wallavic.web.rest.util.PaginationUtil;
 
@@ -31,9 +32,12 @@ import java.util.Optional;
 public class IncomeResource {
 
     private final Logger log = LoggerFactory.getLogger(IncomeResource.class);
-        
+
     @Inject
     private IncomeService incomeService;
+
+    @Inject
+    private ManageIncomeService manageIncomeService;
 
     /**
      * POST  /incomes : Create a new income.
@@ -49,7 +53,7 @@ public class IncomeResource {
         if (income.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("income", "idexists", "A new income cannot already have an ID")).body(null);
         }
-        Income result = incomeService.save(income);
+        Income result = manageIncomeService.createIncome(income);
         return ResponseEntity.created(new URI("/api/incomes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("income", result.getId().toString()))
             .body(result);

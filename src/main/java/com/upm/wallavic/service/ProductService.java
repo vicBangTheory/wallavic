@@ -1,7 +1,9 @@
 package com.upm.wallavic.service;
 
 import com.upm.wallavic.domain.Product;
+import com.upm.wallavic.domain.enumeration.ProductCat;
 import com.upm.wallavic.repository.ProductRepository;
+import com.upm.wallavic.service.dto.ProductFilterDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,7 +22,7 @@ import java.util.List;
 public class ProductService {
 
     private final Logger log = LoggerFactory.getLogger(ProductService.class);
-    
+
     @Inject
     private ProductRepository productRepository;
 
@@ -38,14 +40,38 @@ public class ProductService {
 
     /**
      *  Get all the products.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Product> findAll(Pageable pageable) {
         log.debug("Request to get all Products");
         Page<Product> result = productRepository.findAll(pageable);
+        return result;
+    }
+
+    /**
+     *  Get all the products by money and cat.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<Product> findAllWithFilters(Pageable pageable, ProductFilterDTO productDto) {
+        log.debug("Request to get all Products");
+        Page<Product> result;
+        if(productDto.getProductCats() != null && productDto.getProductCats().size() > 0){
+            result = productRepository.finAllByPriceAndCat(pageable, productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getProductCats());
+        }else{
+            if (productDto.getMinPrice() == null){
+                productDto.setMinPrice(0.0);
+            }
+            if (productDto.getMaxPrice() == null){
+                productDto.setMaxPrice(100000000.0);
+            }
+            result = productRepository.finAllByPrice(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
+        }
         return result;
     }
 
@@ -55,7 +81,7 @@ public class ProductService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Product findOne(Long id) {
         log.debug("Request to get Product : {}", id);
         Product product = productRepository.findOne(id);

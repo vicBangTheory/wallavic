@@ -10,6 +10,10 @@
     function ProductController ($scope, $state, Product, ParseLinks, AlertService, paginationConstants) {
         var vm = this;
 
+        vm.toDisplay = {};
+        vm.toDisplay.options = ['for sale', 'sold'];
+        vm.toDisplay.current = 'for sale';
+
         vm.products = [];
         vm.loadPage = loadPage;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
@@ -20,6 +24,8 @@
         vm.predicate = 'id';
         vm.reset = reset;
         vm.reverse = true;
+
+        vm.changeView = changeView;
 
         loadAll();
 
@@ -59,6 +65,10 @@
         function loadPage(page) {
             vm.page = page;
             loadAll();
+        }
+
+        function changeView(newView) {
+            vm.toDisplay.current = newView;
         }
     }
 })();

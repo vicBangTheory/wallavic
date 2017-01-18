@@ -118,6 +118,9 @@ $provide.value("$locale", {
       }
     ]
   },
+  "PRODUCT_CATEGORY": [
+    "Deportes", "Juegos", "Tecnologia", "Hogar", "Herramientas", "Ropa", "Jardin"
+  ],
   "id": "es",
   "localeID": "es",
   "pluralCat": function(n, opt_precision) {  if (n == 1) {    return PLURAL_CATEGORY.ONE;  }  return PLURAL_CATEGORY.OTHER;}

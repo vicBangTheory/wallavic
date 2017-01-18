@@ -164,6 +164,16 @@ public class UserService {
             });
     }
 
+    public void updateUserMoney(Long id, Double money) {
+        log.debug("entro al metodo al menos");
+        Optional.of(userRepository
+            .findOne(id))
+            .ifPresent(user -> {
+                user.setMoney(money);
+                log.debug("Changed Information for User: {}", user);
+            });
+    }
+
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);

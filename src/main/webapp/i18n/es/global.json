@@ -19,7 +19,8 @@
                 "sessions": "Sesiones",
                 "login": "Iniciar sesión",
                 "logout": "Cerrar la sesión",
-                "register": "Crear una cuenta"
+                "register": "Crear una cuenta",
+                "profile": "Perfil"
             },
             "admin": {
                 "main": "Administración",

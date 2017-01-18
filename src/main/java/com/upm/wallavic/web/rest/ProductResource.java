@@ -2,25 +2,34 @@ package com.upm.wallavic.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.upm.wallavic.domain.Product;
+import com.upm.wallavic.domain.enumeration.ProductCat;
 import com.upm.wallavic.service.ProductService;
+import com.upm.wallavic.service.dto.ProductFilterDTO;
+import com.upm.wallavic.service.util.GenericUtilsService;
 import com.upm.wallavic.web.rest.util.HeaderUtil;
 import com.upm.wallavic.web.rest.util.PaginationUtil;
 
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -31,9 +40,12 @@ import java.util.Optional;
 public class ProductResource {
 
     private final Logger log = LoggerFactory.getLogger(ProductResource.class);
-        
+
     @Inject
     private ProductService productService;
+
+    @Value("${filesDir}")
+    private String filesDir;
 
     /**
      * POST  /products : Create a new product.
@@ -44,12 +56,28 @@ public class ProductResource {
      */
     @PostMapping("/products")
     @Timed
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) throws URISyntaxException {
+    public ResponseEntity<Product> createProduct(@RequestPart @Valid Product product, @RequestPart(value = "file", required = false)MultipartFile file) throws URISyntaxException {
         log.debug("REST request to save Product : {}", product);
         if (product.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("product", "idexists", "A new product cannot already have an ID")).body(null);
         }
+        product.setUploadDate(ZonedDateTime.now());
+
         Product result = productService.save(product);
+
+        if(file != null){
+            String fileName = "-"+result.getId()+"-"+file.getOriginalFilename();
+            try {
+                product.setUrl(GenericUtilsService.uploadFile(file, fileName, filesDir));
+            }catch(IOException e){
+                log.debug("REST request to save Product : {}", e.getStackTrace());
+                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("product", "errorFile", "error getting the file")).body(null);
+            }
+            result = productService.save(product);
+        }
+
+
+
         return ResponseEntity.created(new URI("/api/products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("product", result.getId().toString()))
             .body(result);
@@ -66,12 +94,31 @@ public class ProductResource {
      */
     @PutMapping("/products")
     @Timed
-    public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) throws URISyntaxException {
+    public ResponseEntity<Product> updateProduct(@RequestPart @Valid Product product, @RequestPart(value = "file", required = false)MultipartFile file) throws URISyntaxException {
         log.debug("REST request to update Product : {}", product);
         if (product.getId() == null) {
-            return createProduct(product);
+            return createProduct(product, file);
+        }
+
+        Product prevProduct = productService.findOne(product.getId());
+
+        if(file != null){
+            String fileName = "-"+product.getId()+"-"+file.getOriginalFilename();
+            if(prevProduct.getUrl() != null && fileName.compareTo(product.getUrl()) != 0){
+                GenericUtilsService.removeFile(prevProduct.getUrl(), filesDir);
+            }
+            try {
+                product.setUrl(GenericUtilsService.uploadFile(file, fileName, filesDir));
+            }catch(IOException e){
+                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("product", "errorFile", "error getting the file")).body(null);
+            }
+        }else{
+            if(prevProduct.getUrl() != null){
+                GenericUtilsService.removeFile(prevProduct.getUrl(), filesDir);
+            }
         }
         Product result = productService.save(product);
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("product", product.getId().toString()))
             .body(result);
@@ -86,13 +133,39 @@ public class ProductResource {
      */
     @GetMapping("/products")
     @Timed
-    public ResponseEntity<List<Product>> getAllProducts(@ApiParam Pageable pageable)
+    public ResponseEntity<List<Product>> getAllProducts(@ApiParam Pageable pageable, @ApiParam(required = false) ProductFilterDTO productDto)
         throws URISyntaxException {
         log.debug("REST request to get a page of Products");
-        Page<Product> page = productService.findAll(pageable);
+        Page<Product> page;
+
+        log.debug("this is the productDto: {}", productDto);
+
+        if(productDto != null){
+            page = productService.findAllWithFilters(pageable, productDto);
+        }else{
+            page = productService.findAll(pageable);
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+//    /**
+//     * GET  /products : get all the filtered products .
+//     *
+//     * @param pageable the pagination information
+//     * @return the ResponseEntity with status 200 (OK) and the list of products in body
+//     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+//     */
+//    @GetMapping("/filtered-products")
+//    @Timed
+//    public ResponseEntity<List<Product>> getAllFilterredProducts(@ApiParam Pageable pageable,@ApiParam Double maxMoney, @ApiParam Double minMoney, @ApiParam ProductCat cat)
+//        throws URISyntaxException {
+//        log.debug("REST request to get a page of Products");
+//        Page<Product> page = productService.findAll(pageable);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
 
     /**
      * GET  /products/:id : get the "id" product.
@@ -122,6 +195,10 @@ public class ProductResource {
     @Timed
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         log.debug("REST request to delete Product : {}", id);
+        Product prevProduct = productService.findOne(id);
+        if(prevProduct.getUrl() != null){
+            GenericUtilsService.removeFile(prevProduct.getUrl(), filesDir);
+        }
         productService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("product", id.toString())).build();
     }

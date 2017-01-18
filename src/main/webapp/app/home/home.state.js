@@ -19,6 +19,15 @@
                     templateUrl: 'app/home/home.html',
                     controller: 'HomeController',
                     controllerAs: 'vm'
+                },
+                'filters@home': {
+                    templateUrl: 'app/home/partials/home-filters.html',
+                    controller: 'HomeFiltersController',
+                    controllerAs: 'vm'
+                },'products@home': {
+                    templateUrl: 'app/home/partials/home-content.html',
+                    controller: 'HomeController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {

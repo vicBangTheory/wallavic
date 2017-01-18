@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="bottom-border" class="col-md-12">
+        <h1> {{'product.title' | translate}} + "nombre usuario"</h1>
+    </div>
+    <div class="margin-top col-md-12">
+        <div class="col-md-3">
+            <div class="nabTabs" ng-class="{'active': link === vm.toDisplay.current}" ng-repeat="link in vm.toDisplay.options" ng-click="vm.changeView(link)">{{link}} </div>
+        </div>
+        <div class="col-md-9">
+            <jhi-alert></jhi-alert>
+            <div class="container-fluid" ng-if="vm.toDisplay.current === 'for sale'">
+                <div class="row">
+                    <div class="col-xs-4 no-padding-left">
+                        <button class="btn btn-primary" ui-sref="product.new" >
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span  data-translate="wallavicApp.product.home.createLabel">
+                                Create new Product
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="table-responsive">
+                <table class="jh-table table table-striped">
+                    <thead>
+                        <tr>
+                            <th><span data-translate="global.field.id">ID</span></th>
+                            <th><span data-translate="wallavicApp.product.cat">Cat</span></th>
+                            <th><span data-translate="wallavicApp.product.description">Description</span> </th>
+                            <th><span data-translate="wallavicApp.product.uploadDate">Upload Date</span></th>
+                            <th><span data-translate="wallavicApp.product.price">Price</span></th>
+                            <th><span data-translate="wallavicApp.product.url">Url</span></th>
+                            <th><span data-translate="wallavicApp.product.user">User</span></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+                        <tr ng-if="(vm.toDisplay.current === 'for sale' && !product.sold) || (vm.toDisplay.current === 'sold' && product.sold)" ng-repeat="product in vm.products track by product.id">
+                            <td><a ui-sref="product-detail({id:product.id})">{{product.id}}</a></td>
+                            <td data-translate="{{'wallavicApp.ProductCat.' + product.cat}}">{{product.cat}}</td>
+                            <td>{{product.description}}</td>
+                            <td>{{product.uploadDate | date:'medium'}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.url}}</td>
+                            <td>
+                                {{product.user.login}}
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            ui-sref="product-detail({id:product.id})"
+                                            class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                        <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="product.edit({id:product.id})"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="product.delete({id:product.id})"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                        <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 

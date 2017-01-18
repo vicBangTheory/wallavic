@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.upm.wallavic.domain.enumeration.ProductCat;
+import org.hibernate.query.criteria.internal.predicate.BooleanAssertionPredicate;
 
 /**
  * A Product.
@@ -44,6 +45,9 @@ public class Product implements Serializable {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "sold")
+    private Boolean sold;
+
     @ManyToOne
     private User user;
 
@@ -62,6 +66,14 @@ public class Product implements Serializable {
     public Product cat(ProductCat cat) {
         this.cat = cat;
         return this;
+    }
+
+    public Boolean getSold() {
+        return sold;
+    }
+
+    public void setSold(Boolean sold) {
+        this.sold = sold;
     }
 
     public void setCat(ProductCat cat) {

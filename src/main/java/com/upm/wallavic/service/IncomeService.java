@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
 public class IncomeService {
 
     private final Logger log = LoggerFactory.getLogger(IncomeService.class);
-    
+
     @Inject
     private IncomeRepository incomeRepository;
 
@@ -31,6 +32,7 @@ public class IncomeService {
      * @return the persisted entity
      */
     public Income save(Income income) {
+        income.setDate(ZonedDateTime.now());
         log.debug("Request to save Income : {}", income);
         Income result = incomeRepository.save(income);
         return result;
@@ -38,11 +40,11 @@ public class IncomeService {
 
     /**
      *  Get all the incomes.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Income> findAll(Pageable pageable) {
         log.debug("Request to get all Incomes");
         Page<Income> result = incomeRepository.findAll(pageable);
@@ -55,7 +57,7 @@ public class IncomeService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Income findOne(Long id) {
         log.debug("Request to get Income : {}", id);
         Income income = incomeRepository.findOne(id);

@@ -1,0 +1,34 @@
+<div>
+	<div class="form-group">
+        <label class="control-label" for="firstName" data-translate="profile.form.login">Login</label>
+        <input type="text" class="form-control" id="login" name="login"
+               ng-model="vm.user.login" ng-disabled="true">
+    </div>
+	<div class="form-group">
+        <label class="control-label" for="firstName" data-translate="profile.form.firstname">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName"
+               ng-model="vm.user.firstName" ng-disabled="true">
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label" for="lastName" data-translate="profile.form.lastname">Last Name</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" 
+               ng-model="vm.user.lastName" ng-disabled="true">
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="email" data-translate="profile.form.email">Email</label>
+        <input type="text" class="form-control" id="email" name="email"
+               ng-model="vm.user.email" ng-disabled="true">
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="money" data-translate="profile.form.money">Money</label>
+        <input type="number" class="form-control" id="money" name="money"
+               ng-model="vm.user.money" ng-disabled="true">
+    </div>
+
+    <button data-translate="profile.button.money" ng-click="vm.changeStateTo('make-income')" class="btn btn-info"></button>
+    <button data-translate="profile.button.password" ng-click="vm.changeStateTo('password')" class="btn btn-info"></button>
+    <button data-translate="profile.button.settings" ng-click="vm.changeStateTo('settings')" class="btn btn-info"></button>
+</div>

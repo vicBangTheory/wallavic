@@ -8,12 +8,20 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
+        <div id="alert-size" ng-if="vm.showErrorFile" class="alert alert-danger">File size too big</div>
+
         <div class="form-group" ng-show="vm.product.id">
             <label for="id" data-translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.product.id" readonly />
         </div>
         <div class="form-group">
+            <label class="control-label" data-translate="wallavicApp.product.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.product.description"
+                     />
+        </div>
+         <div class="form-group">
             <label class="control-label" data-translate="wallavicApp.product.cat" for="field_cat">Cat</label>
             <select class="form-control" name="cat" ng-model="vm.product.cat" id="field_cat" required>
                 <option value="Sport" data-translate="wallavicApp.ProductCat.Sport">Sport</option>
@@ -30,22 +38,6 @@
                     This field is required.
                 </p>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" data-translate="wallavicApp.product.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                    ng-model="vm.product.description"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" data-translate="wallavicApp.product.uploadDate" for="field_uploadDate">Upload Date</label>
-                <div class="input-group">
-                    <input id="field_uploadDate" type="text" class="form-control" name="uploadDate" datetime-picker="{{dateformat}}" ng-model="vm.product.uploadDate" is-open="vm.datePickerOpenStatus.uploadDate"
-                      />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('uploadDate')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="wallavicApp.product.price" for="field_price">Price</label>
@@ -68,17 +60,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="wallavicApp.product.url" for="field_url">Url</label>
-            <input type="text" class="form-control" name="url" id="field_url"
-                    ng-model="vm.product.url"
-                     />
-        </div>
-
-        <div class="form-group">
-            <label data-translate="wallavicApp.product.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" ng-model="vm.product.user" ng-options="user as user.login for user in vm.users track by user.id">
-                <option value=""></option>
-            </select>
+            <label class="control-label" data-translate="wallavicApp.product.image" for="field_image">Image</label>
+            <div ngf-drop ngf-select ng-model="vm.file" class="drop-box" id="field_image"
+                ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" ngf-keep="true" ngf-change="vm.uploadModel($newFiles)"
+                accept="image/*,.png,.jpeg,.gif,application/pdf,video/*,.docx,.doc,.xls,.xlsx,.zip,.rar,.mp3" 
+                ngf-pattern="'image/*,.png,.jpeg,.gif,application/pdf,video/*,.docx,.doc,.xls,.xlsx,.zip,.rar,.mp3'">Drop .pdf, .doc, .xls, or any type of video, images and audio or click to upload</div>
+            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+            File:
+            <ul>
+                <li ng-repeat="f in vm.file">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
+            </ul>
+            <button ng-if="vm.file.length > 0" class="btn btn-danger" ng-click="vm.removeFile()"><span class="glyphicon glyphicon-trash"></span></button>
         </div>
     </div>
     <div class="modal-footer">

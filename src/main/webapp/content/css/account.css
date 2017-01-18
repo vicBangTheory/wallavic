@@ -1,0 +1,18 @@
+.bottom-border {
+  border-bottom: 1px solid #d2d2d2; }
+
+.margin-top {
+  margin-top: 10px; }
+
+.nabTabs {
+  background-color: #e0e0e0;
+  padding: 20px;
+  border: solid 1px #7f008e;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  outline: none; }
+  .nabTabs:hover {
+    outline: none; }
+  .nabTabs.active {
+    outline: none;
+    background-color: #adadad; }

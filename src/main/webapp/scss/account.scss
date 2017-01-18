@@ -1,0 +1,25 @@
+@import '../scss/_sassVariables.scss';
+
+.bottom-border{
+	border-bottom: 1px solid $gray_border;
+}
+
+.margin-top{
+	margin-top: 10px;
+}
+
+.nabTabs{
+	background-color: rgb(224, 224, 224);
+    padding: 20px;
+    border: solid 1px #7f008e;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    outline: none;
+    &:hover{
+    	outline:none;
+    }
+    &.active{
+    	outline:none;
+    	background-color: #adadad;
+    }
+}

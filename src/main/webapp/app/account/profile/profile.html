@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="bottom-border" class="col-md-12">
+		<h1> {{'profile.title' | translate}} "nombre usuario"</h1>
+	</div>
+	<div class="col-md-12 margin-top">
+		<div class="col-md-3">
+			<div class="nabTabs" ng-class="{'active': link === vm.toDisplay.current}" ng-repeat="link in vm.toDisplay.options" ng-click="vm.changeView(link)">{{link}} {{link === vm.toDisplay.current}}</div>
+		</div>
+		<div class="col-md-9">
+			<div ng-if="vm.toDisplay.current === 'information'" ng-include="'app/account/profile/containers/information.html'"></div>
+			<div ng-if="vm.toDisplay.current === 'incomes'" ng-include="'app/account/profile/containers/incomes.html'"></div>
+		</div>
+	</div>
+	
+</div>
