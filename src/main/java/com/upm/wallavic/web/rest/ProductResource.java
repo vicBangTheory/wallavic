@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.upm.wallavic.domain.Product;
 import com.upm.wallavic.domain.enumeration.ProductCat;
 import com.upm.wallavic.service.ProductService;
+import com.upm.wallavic.service.dto.ExampleDTO;
 import com.upm.wallavic.service.dto.ProductFilterDTO;
 import com.upm.wallavic.service.util.GenericUtilsService;
 import com.upm.wallavic.web.rest.util.HeaderUtil;
@@ -133,13 +134,14 @@ public class ProductResource {
      */
     @GetMapping("/products")
     @Timed
-    public ResponseEntity<List<Product>> getAllProducts(@ApiParam Pageable pageable, @ApiParam(required = false) ProductFilterDTO productDto)
+    public ResponseEntity<List<Product>> getAllProducts(@ApiParam Pageable pageable, @Valid @RequestParam(required = false) ExampleDTO example)
         throws URISyntaxException {
+        ProductFilterDTO productDto = null;
         log.debug("REST request to get a page of Products");
         Page<Product> page;
 
-        log.debug("this is the productDto: {}", productDto);
-
+        log.debug("this is the productDto: {}", example);
+        log.debug("this is the productDto:" + example.getText());
         if(productDto != null){
             page = productService.findAllWithFilters(pageable, productDto);
         }else{

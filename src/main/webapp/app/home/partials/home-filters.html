@@ -3,18 +3,18 @@
 	<div class="input-filters">
 		<label>Select categories</label>
 		<div class="form-group">
-			<div ng-repeat="cat in vm.categories"><input type="checkbox" name="catCheck" ng-model="vm.filters.cat[cat]">{{cat}}</div>
+			<div ng-repeat="cat in vm.categories"><input type="checkbox" name="catCheck" ng-model="vm.filters.cats[cat]">{{cat}}</div>
 		</div>	
 	</div>
 	<div>
 		<div>
 			<div class="form-group">
 				<label for="minPrice">Min price</label>
-				<input class="form-control" type="number" name="minPrice" placeholder="0">
+				<input class="form-control" type="number" name="minPrice" placeholder="0" ng-model="vm.filters.minPrice">
 			</div>
 			<div class="form-group">
 				<label for="maxPrice">Max price</label>
-				<input class="form-control" type="number" name="maxPrice" placeholder="1000">
+				<input class="form-control" type="number" name="maxPrice" placeholder="1000" ng-model="vm.filters.maxPrice">
 			</div>
 		</div>
 	</div>

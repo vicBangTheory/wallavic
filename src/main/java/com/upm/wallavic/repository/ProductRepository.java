@@ -22,7 +22,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     Page<Product> finAllByPrice(Pageable pageable, Double maxPrice, Double minPrice);
 
     @Query("select p from Product p where p.price <= ?2 and p.price >= ?3 and p.cat in ?4 and p.sold = false")
-    Page<Product> finAllByPriceAndCat(Pageable pageable, Double maxPrice, Double minPrice, List<ProductCat> cats);
+    Page<Product> finAllByPriceAndCat(Pageable pageable, Double maxPrice, Double minPrice, List<String> cats);
 
 
 }

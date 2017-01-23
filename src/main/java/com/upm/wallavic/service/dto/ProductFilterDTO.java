@@ -1,28 +1,28 @@
 package com.upm.wallavic.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.upm.wallavic.domain.enumeration.ProductCat;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Victor on 18/01/2017.
  */
-public class ProductFilterDTO {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ProductFilterDTO implements Serializable{
 
-    private boolean onSale;
 
     private Double maxPrice;
 
     private Double minPrice;
 
-    private List<ProductCat> productCats;
-
-    public boolean isOnSale() {
-        return onSale;
+    public ProductFilterDTO( Double maxPrice, Double minPrice) {
+        this.maxPrice = maxPrice;
+        this.minPrice = minPrice;
     }
 
-    public void setOnSale(boolean onSale) {
-        this.onSale = onSale;
+    public ProductFilterDTO() {
     }
 
     public Double getMaxPrice() {
@@ -41,21 +41,11 @@ public class ProductFilterDTO {
         this.minPrice = minPrice;
     }
 
-    public List<ProductCat> getProductCats() {
-        return productCats;
-    }
-
-    public void setProductCats(List<ProductCat> productCats) {
-        this.productCats = productCats;
-    }
-
     @Override
     public String toString() {
         return "ProductFilterDTO{" +
-            "onSale=" + onSale +
             ", maxPrice=" + maxPrice +
             ", minPrice=" + minPrice +
-            ", productCats=" + productCats +
             '}';
     }
 }

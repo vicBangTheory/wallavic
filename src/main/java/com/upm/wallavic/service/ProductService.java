@@ -59,20 +59,21 @@ public class ProductService {
      */
     @Transactional(readOnly = true)
     public Page<Product> findAllWithFilters(Pageable pageable, ProductFilterDTO productDto) {
+        log.debug("this is the productDto: {}", productDto);
         log.debug("Request to get all Products");
         Page<Product> result;
-        if(productDto.getProductCats() != null && productDto.getProductCats().size() > 0){
-            result = productRepository.finAllByPriceAndCat(pageable, productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getProductCats());
-        }else{
-            if (productDto.getMinPrice() == null){
-                productDto.setMinPrice(0.0);
-            }
-            if (productDto.getMaxPrice() == null){
-                productDto.setMaxPrice(100000000.0);
-            }
-            result = productRepository.finAllByPrice(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
-        }
-        return result;
+//        if (productDto.getMinPrice() == null){
+//            productDto.setMinPrice(0.0);
+//        }
+//        if (productDto.getMaxPrice() == null){
+//            productDto.setMaxPrice(100000000.0);
+//        }
+//        if(productDto.getProductCats() != null && productDto.getProductCats().size() > 0){
+////            result = productRepository.finAllByPriceAndCat(pageable, productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getProductCats());
+//        }else{
+//            result = productRepository.finAllByPrice(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
+//        }
+        return null;
     }
 
     /**
