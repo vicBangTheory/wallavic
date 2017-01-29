@@ -12,18 +12,29 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductFilterDTO implements Serializable{
 
+    private List<ProductCat> cats;
 
     private Double maxPrice;
 
     private Double minPrice;
 
-    public ProductFilterDTO( Double maxPrice, Double minPrice) {
+    public ProductFilterDTO(List<ProductCat> cats, Double maxPrice, Double minPrice) {
+        this.cats = cats;
         this.maxPrice = maxPrice;
         this.minPrice = minPrice;
     }
 
     public ProductFilterDTO() {
     }
+
+    public List<ProductCat> getCats() {
+        return cats;
+    }
+
+    public void setCats(List<ProductCat> cats) {
+        this.cats = cats;
+    }
+
 
     public Double getMaxPrice() {
         return maxPrice;
@@ -44,6 +55,7 @@ public class ProductFilterDTO implements Serializable{
     @Override
     public String toString() {
         return "ProductFilterDTO{" +
+            "cats=" + cats +
             ", maxPrice=" + maxPrice +
             ", minPrice=" + minPrice +
             '}';

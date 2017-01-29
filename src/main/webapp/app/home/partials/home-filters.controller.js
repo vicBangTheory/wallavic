@@ -5,9 +5,9 @@
         .module('wallavicApp')
         .controller('HomeFiltersController', HomeFiltersController);
 
-    HomeFiltersController.$inject = ['$locale', 'HomeFilterProducts'];
+    HomeFiltersController.$inject = ['$locale', 'HomeSearchProducts'];
 
-    function HomeFiltersController ($locale, HomeFilterProducts) {
+    function HomeFiltersController ($locale, HomeSearchProducts) {
         var vm = this;
 
         vm.filters = {};
@@ -19,8 +19,7 @@
 
         function newSearch() {
             vm.filters.onSale = true;
-            console.log(vm.filters)
-            HomeFilterProducts.setFilters(vm.filters);
+            HomeSearchProducts.setFilters(vm.filters);
         }
 
     }

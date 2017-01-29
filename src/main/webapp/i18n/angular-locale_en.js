@@ -135,9 +135,15 @@ $provide.value("$locale", {
         "posSuf": ""
       }
     ]
-  }
+  },
   "PRODUCT_CATEGORY": [
-    "Sport", "Gaming", "Technology", "Home", "Tools", "Clothes", "Garden"
+    {"value": "Sport", "label":  "Sport"},
+    {"value": "Gaming", "label":  "Gaming"},
+    {"value": "Technology", "label":  "Technology"},
+    {"value": "Home", "label":  "Home"},
+    {"value": "Tools", "label":  "Tools"},
+    {"value": "Clothes", "label":  "Clothes"},
+    {"value": "Garden", "label":  "Garden"}
   ],
   "id": "en",
   "localeID": "en",

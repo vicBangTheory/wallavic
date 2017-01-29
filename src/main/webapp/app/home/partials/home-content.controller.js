@@ -5,10 +5,12 @@
         .module('wallavicApp')
         .controller('HomeContentController', HomeContentController);
 
-    HomeContentController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Product'];
+    HomeContentController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Product', 'HomeSearchProducts'];
 
-    function HomeContentController ($scope, Principal, LoginService, $state, Product) {
+    function HomeContentController ($scope, Principal, LoginService, $state, Product, HomeSearchProducts) {
         var vm = this;
+        
+        vm.HomeSearchProducts = HomeSearchProducts;
 
         vm.account = null;
         vm.isAuthenticated = null;
@@ -30,21 +32,11 @@
             $state.go('register');
         }
 
+        HomeSearchProducts.resetAll();
+        HomeSearchProducts.firstSearch();
 
 
 
-
-
-        vm.page = 0;
-        vm.links = {
-            last: 0
-        };
-
-        function loadPageUsers(page) {
-            vm.loadingUsers = true;
-            vm.page = page;
-            loadUsers();
-            
-        }
+       
     }
 })();

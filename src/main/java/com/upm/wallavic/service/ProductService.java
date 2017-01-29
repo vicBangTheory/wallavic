@@ -52,31 +52,6 @@ public class ProductService {
     }
 
     /**
-     *  Get all the products by money and cat.
-     *
-     *  @param pageable the pagination information
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public Page<Product> findAllWithFilters(Pageable pageable, ProductFilterDTO productDto) {
-        log.debug("this is the productDto: {}", productDto);
-        log.debug("Request to get all Products");
-        Page<Product> result;
-//        if (productDto.getMinPrice() == null){
-//            productDto.setMinPrice(0.0);
-//        }
-//        if (productDto.getMaxPrice() == null){
-//            productDto.setMaxPrice(100000000.0);
-//        }
-//        if(productDto.getProductCats() != null && productDto.getProductCats().size() > 0){
-////            result = productRepository.finAllByPriceAndCat(pageable, productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getProductCats());
-//        }else{
-//            result = productRepository.finAllByPrice(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
-//        }
-        return null;
-    }
-
-    /**
      *  Get one product by id.
      *
      *  @param id the id of the entity
@@ -98,4 +73,30 @@ public class ProductService {
         log.debug("Request to delete Product : {}", id);
         productRepository.delete(id);
     }
+
+    /**
+     * Get all the products by money and cat..
+     *
+     *  @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Page<Product> filterProducts(Pageable pageable, ProductFilterDTO productDto) {
+
+        if(productDto.getMinPrice() == null){
+            productDto.setMinPrice(0.0);
+        }
+        if(productDto.getMaxPrice() == null){
+            productDto.setMaxPrice(Double.MAX_VALUE);
+        }
+        Page<Product> result;
+        if(productDto.getCats() == null || productDto.getCats().size() == 0){
+            result = productRepository.finAllByPrice(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
+        }else{
+            result = productRepository.finAllByPriceAndCat(productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getCats(), pageable);
+        }
+        log.debug("the response would be: {}", result.getContent());
+
+        return result;
+    }
+
 }

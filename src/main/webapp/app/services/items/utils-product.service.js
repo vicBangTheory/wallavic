@@ -10,7 +10,8 @@
 
         var service = {
             setItemImage: setItemImage,
-            updateItemImage: updateItemImage
+            updateItemImage: updateItemImage,
+            getProductFiltered: getProductFiltered
         };
 
         return service;
@@ -63,6 +64,15 @@
                 data: fd
             }).then(function(response){
                 return response;
+            });
+        }
+
+        function getProductFiltered(productDto, page, size, sortBy){
+            return $http({
+                url: 'api/filtered_products',
+                method: 'POST',
+                data: productDto,
+                params: {page: page, size: size, sort: sortBy}
             });
         }
         

@@ -119,7 +119,13 @@ $provide.value("$locale", {
     ]
   },
   "PRODUCT_CATEGORY": [
-    "Deportes", "Juegos", "Tecnologia", "Hogar", "Herramientas", "Ropa", "Jardin"
+    {"value": "Sport", "label":  "Deportes"},
+    {"value": "Gaming", "label":  "Juegos"},
+    {"value": "Technology", "label":  "Tecnologia"},
+    {"value": "Home", "label":  "Hogar"},
+    {"value": "Tools", "label":  "Herramientas"},
+    {"value": "Clothes", "label":  "Ropa"},
+    {"value": "Garden", "label":  "Jardin"}
   ],
   "id": "es",
   "localeID": "es",

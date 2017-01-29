@@ -3,7 +3,7 @@
 	<div class="input-filters">
 		<label>Select categories</label>
 		<div class="form-group">
-			<div ng-repeat="cat in vm.categories"><input type="checkbox" name="catCheck" ng-model="vm.filters.cats[cat]">{{cat}}</div>
+			<div ng-repeat="cat in vm.categories"><input type="checkbox" name="catCheck" ng-model="vm.filters.cats[cat.value]">{{cat.label}}</div>
 		</div>	
 	</div>
 	<div>

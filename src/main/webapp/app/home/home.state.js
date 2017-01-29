@@ -26,7 +26,7 @@
                     controllerAs: 'vm'
                 },'products@home': {
                     templateUrl: 'app/home/partials/home-content.html',
-                    controller: 'HomeController',
+                    controller: 'HomeContentController',
                     controllerAs: 'vm'
                 }
             },

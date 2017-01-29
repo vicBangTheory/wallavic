@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import com.upm.wallavic.domain.Product;
 import com.upm.wallavic.domain.enumeration.ProductCat;
 import com.upm.wallavic.service.ProductService;
-import com.upm.wallavic.service.dto.ExampleDTO;
 import com.upm.wallavic.service.dto.ProductFilterDTO;
 import com.upm.wallavic.service.util.GenericUtilsService;
 import com.upm.wallavic.web.rest.util.HeaderUtil;
@@ -134,19 +133,11 @@ public class ProductResource {
      */
     @GetMapping("/products")
     @Timed
-    public ResponseEntity<List<Product>> getAllProducts(@ApiParam Pageable pageable, @Valid @RequestParam(required = false) ExampleDTO example)
+    public ResponseEntity<List<Product>> getAllProducts(@ApiParam Pageable pageable)
         throws URISyntaxException {
-        ProductFilterDTO productDto = null;
         log.debug("REST request to get a page of Products");
-        Page<Product> page;
 
-        log.debug("this is the productDto: {}", example);
-        log.debug("this is the productDto:" + example.getText());
-        if(productDto != null){
-            page = productService.findAllWithFilters(pageable, productDto);
-        }else{
-            page = productService.findAll(pageable);
-        }
+        Page<Product> page = productService.findAll(pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -203,6 +194,25 @@ public class ProductResource {
         }
         productService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("product", id.toString())).build();
+    }
+
+    /**
+     * POST  /filtered_products : Create a new product.
+     *
+     * @param product the product to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new product, or with status 400 (Bad Request) if the product has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/filtered_products")
+    @Timed
+    public ResponseEntity<List<Product>> getFilteredProducts(@ApiParam Pageable pageable,@Valid @RequestBody ProductFilterDTO productDto) throws URISyntaxException {
+        log.debug("esta vez si que deberia coger el puto dto: {}", productDto);
+        log.debug("pagination: {}", pageable);
+
+        Page<Product> page = productService.filterProducts(pageable, productDto);
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/filtered_products");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 }
