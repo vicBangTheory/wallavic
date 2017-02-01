@@ -8,3 +8,24 @@
     border: 1px solid #a991d8;
     border-radius: 5px;
 }
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open 
+.dropdown-menu {
+  background-color: #222;
+  color:#fff;
+}
+
+li.nav-item.dropdown.show > .dropdown-menu{
+	background-color: #292b2c;
+}
+
+li.nav-item.dropdown.show > .dropdown-menu > a.dropdown-item{
+	background-color: #292b2c;
+	color: rgba(255, 255, 255, 0.5);
+	&:hover{
+		background-color: rgba(128, 132, 134, 0.29);
+	}
+	&.active{
+		color: white;
+	}
+}

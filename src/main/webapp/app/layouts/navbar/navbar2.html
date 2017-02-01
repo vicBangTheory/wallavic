@@ -1,32 +1,70 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+<nav class="navbar navbar-toggleable-md bg-faded bg-inverse navbar-inverse" ng-switch="vm.isAuthenticated()">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="#">WallaVic</a>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a ui-sref="home">
+      <li ui-sref-active="active" class="nav-item active">
+        <a class="nav-link" ui-sref="home">
           <i class="fa fa-home" aria-hidden="true"></i>
-          <span class="hidden-sm" data-translate="global.menu.home">Home</span>
+          <span>Home</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+      <li ui-sref-active="active" class="nav-item active">
+        <a class="nav-link" ui-sref="product">
+          <i class="fa fa-th-list" aria-hidden="true"></i>
+          <span>My Items</span>
+        </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
+      <li ng-class="{active: vm.$state.includes('entity')}" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+          <span>Reports</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="products-menu">Sold items</a>
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="products-menu">Purchase items</a>
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="products-reports">Balance summary</a>
         </div>
       </li>
-    </ul>
-  </div>
+      <li class="nav-item dropdown" ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN">
+        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-television" aria-hidden="true"></i>
+          <span class="hidden-sm" data-translate="global.menu.admin.main">Administration</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="user-management" data-translate="global.menu.admin.userManagement">User management</a>
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="jhi-metrics" data-translate="global.menu.admin.audits">Metrics</a>
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="audits" data-translate="global.menu.admin.audits">Audits</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" ng-class="{active: vm.$state.includes('account')}">
+        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user-o" aria-hidden="true"></i>
+          <span class="hidden-sm" data-translate="global.menu.account.main">
+            Account
+          </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="profile" ng-switch-when="true" data-translate="global.menu.account.profile">Profile</a>
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="sessions" ng-switch-when="true" data-translate="global.menu.account.sessions">Sessions</a>
+          <a ui-sref-active="active" class="dropdown-item" href="" ng-click="vm.logout()" ng-switch-when="true" data-translate="global.menu.account.logout">Sign out</a>
+          <a ui-sref-active="active" class="dropdown-item" href="" ng-click="vm.login()" ng-switch-when="false" data-translate="global.menu.account.login">Sign in</a>
+          <a ui-sref-active="active" class="dropdown-item" ui-sref="register" ng-switch-when="false" data-translate="global.menu.account.register">Sing up</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown"  ng-controller="JhiLanguageController as languageVm">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-flag" aria-hidden="true"></i>
+          <span class="hidden-sm" data-translate="global.menu.language">Language</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+          <a ng-repeat="language in languageVm.languages" ui-sref-active="active" class="dropdown-item" href="" ng-click="languageVm.changeLanguage(language)" ng-switch-when="true">{{language | findLanguageFromKey}}</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
 </nav>
+
