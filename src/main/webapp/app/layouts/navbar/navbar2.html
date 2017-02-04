@@ -1,10 +1,13 @@
-<nav class="navbar navbar-toggleable-md bg-faded bg-inverse navbar-inverse" ng-switch="vm.isAuthenticated()">
+<nav class="navbar navbar-toggleable-md bg-faded bg-inverse navbar-inverse mb-4" ng-switch="vm.isAuthenticated()">
+  <div class="container">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="#">WallaVic</a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
+  
+    
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav ">
       <li ui-sref-active="active" class="nav-item active">
         <a class="nav-link" ui-sref="home">
           <i class="fa fa-home" aria-hidden="true"></i>
@@ -53,8 +56,8 @@
           <a ui-sref-active="active" class="dropdown-item" href="" ng-click="vm.login()" ng-switch-when="false" data-translate="global.menu.account.login">Sign in</a>
           <a ui-sref-active="active" class="dropdown-item" ui-sref="register" ng-switch-when="false" data-translate="global.menu.account.register">Sing up</a>
         </div>
-    </li>
-    <li class="nav-item dropdown"  ng-controller="JhiLanguageController as languageVm">
+      </li>
+      <li class="nav-item dropdown"  ng-controller="JhiLanguageController as languageVm">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-flag" aria-hidden="true"></i>
           <span class="hidden-sm" data-translate="global.menu.language">Language</span>
@@ -62,9 +65,9 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
           <a ng-repeat="language in languageVm.languages" ui-sref-active="active" class="dropdown-item" href="" ng-click="languageVm.changeLanguage(language)" ng-switch-when="true">{{language | findLanguageFromKey}}</a>
         </div>
-      </div>
-    </li>
-  </ul>
-</div>
+      </li>
+    </ul>
+  </div>
+  </div>
+  
 </nav>
-
