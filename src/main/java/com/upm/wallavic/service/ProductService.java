@@ -3,6 +3,7 @@ package com.upm.wallavic.service;
 import com.upm.wallavic.domain.Product;
 import com.upm.wallavic.domain.enumeration.ProductCat;
 import com.upm.wallavic.repository.ProductRepository;
+import com.upm.wallavic.security.SecurityUtils;
 import com.upm.wallavic.service.dto.ProductFilterDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class ProductService {
 
     @Inject
     private ProductRepository productRepository;
+
 
     /**
      * Save a product.
@@ -82,6 +84,8 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<Product> filterProducts(Pageable pageable, ProductFilterDTO productDto) {
 
+        Boolean hasUSer = SecurityUtils.isAuthenticated();
+
         if(productDto.getMinPrice() == null){
             productDto.setMinPrice(0.0);
         }
@@ -90,9 +94,17 @@ public class ProductService {
         }
         Page<Product> result;
         if(productDto.getCats() == null || productDto.getCats().size() == 0){
-            result = productRepository.finAllByPrice(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
+            if(hasUSer){
+                result = productRepository.finAllByPrice(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
+            }else{
+                result = productRepository.finAllByPriceNoUser(pageable, productDto.getMaxPrice(), productDto.getMinPrice());
+            }
         }else{
-            result = productRepository.finAllByPriceAndCat(productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getCats(), pageable);
+            if(hasUSer){
+                result = productRepository.finAllByPriceAndCat(productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getCats(), pageable);
+            }else{
+                result = productRepository.finAllByPriceAndCatNoUser(productDto.getMaxPrice(), productDto.getMinPrice(), productDto.getCats(), pageable);
+            }
         }
         log.debug("the response would be: {}", result.getContent());
 
