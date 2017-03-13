@@ -26,11 +26,9 @@
                     <thead>
                         <tr>
                             <th><span data-translate="global.field.id">ID</span></th>
+                            <th><span data-translate="global.field.title">Title</span></th>
                             <th><span data-translate="wallavicApp.product.cat">Cat</span></th>
-                            <th><span data-translate="wallavicApp.product.description">Description</span> </th>
                             <th><span data-translate="wallavicApp.product.uploadDate">Upload Date</span></th>
-                            <th><span data-translate="wallavicApp.product.price">Price</span></th>
-                            <th><span data-translate="wallavicApp.product.url">Url</span></th>
                             <th><span data-translate="wallavicApp.product.user">User</span></th>
                             <th></th>
                         </tr>
@@ -38,11 +36,9 @@
                     <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
                         <tr ng-if="(vm.toDisplay.current === 'for sale' && !product.sold) || (vm.toDisplay.current === 'sold' && product.sold)" ng-repeat="product in vm.products track by product.id">
                             <td><a ui-sref="product-detail({id:product.id})">{{product.id}}</a></td>
+                            <td>{{product.title}}</td>
                             <td data-translate="{{'wallavicApp.ProductCat.' + product.cat}}">{{product.cat}}</td>
-                            <td>{{product.description}}</td>
                             <td>{{product.uploadDate | date:'medium'}}</td>
-                            <td>{{product.price}}</td>
-                            <td>{{product.url}}</td>
                             <td>
                                 {{product.user.login}}
                             </td>

@@ -1,23 +1,28 @@
-<div class="left-filters">
-	<h2>Filters</h2>
-	<div class="input-filters">
-		<label>Select categories</label>
-		<div class="form-group">
-			<div ng-repeat="cat in vm.categories"><input type="checkbox" name="catCheck" ng-model="vm.filters.cats[cat.value]">{{cat.label}}</div>
-		</div>	
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2 class="panel-title">Filters</h2>
 	</div>
-	<div>
+	<div class="panel-body">
+		<div class="input-filters">
+			<label>Select categories</label>
+			<div class="form-group">
+				<div ng-repeat="cat in vm.categories"><input type="checkbox" name="catCheck" ng-model="vm.filters.cats[cat.value]">{{cat.label}}</div>
+			</div>	
+		</div>
 		<div>
-			<div class="form-group">
-				<label for="minPrice">Min price</label>
-				<input class="form-control" type="number" name="minPrice" placeholder="0" ng-model="vm.filters.minPrice">
-			</div>
-			<div class="form-group">
-				<label for="maxPrice">Max price</label>
-				<input class="form-control" type="number" name="maxPrice" placeholder="1000" ng-model="vm.filters.maxPrice">
+			<div>
+				<div class="form-group">
+					<label for="minPrice">Min price</label>
+					<input class="form-control" type="number" name="minPrice" placeholder="0" ng-model="vm.filters.minPrice">
+				</div>
+				<div class="form-group">
+					<label for="maxPrice">Max price</label>
+					<input class="form-control" type="number" name="maxPrice" placeholder="1000" ng-model="vm.filters.maxPrice">
+				</div>
 			</div>
 		</div>
 	</div>
-	<button class="btn btn-primary" ng-click="vm.newSearch()">Apply filters</button>	
+	<div class="panel-footer">
+		<button class="btn btn-primary" ng-click="vm.newSearch()">Apply filters</button>	
+	</div>
 </div>
-

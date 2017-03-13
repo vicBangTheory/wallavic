@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "purchase")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Purchase implements Serializable {
+public class  Purchase implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

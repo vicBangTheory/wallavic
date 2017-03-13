@@ -31,6 +31,9 @@ public class Product implements Serializable {
     @Column(name = "cat", nullable = false)
     private ProductCat cat;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
     @Column(name = "description")
     private String description;
 
@@ -66,6 +69,14 @@ public class Product implements Serializable {
     public Product cat(ProductCat cat) {
         this.cat = cat;
         return this;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Boolean getSold() {

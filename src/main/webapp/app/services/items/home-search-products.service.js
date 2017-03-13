@@ -14,7 +14,7 @@
         productVar.links = {};
         productVar.links.last = 0;
         productVar.sort = 'id,desc';
-        productVar.size = 5;
+        productVar.size = 15;
 
         productVar.filters = {};
         productVar.filters.minPrice;
@@ -28,7 +28,8 @@
             resetFilters: resetFilters,
             resetAll: resetAll,
             firstSearch: firstSearch,
-            getServiceVar: getServiceVar
+            getServiceVar: getServiceVar,
+            setPageTo: setPageTo
         };
 
         return service;
@@ -93,7 +94,7 @@
             productVar.links = {};
             productVar.links.last = 0;
             productVar.sort = 'id,desc';
-            productVar.size = 5;
+            productVar.size = 15;
         }
 
         function transformToArray(cats){
@@ -105,6 +106,10 @@
                 }
             });
             return arrayCats;
+        }
+
+        function setPageTo(page){
+            productVar.page = page;
         }
         
     }

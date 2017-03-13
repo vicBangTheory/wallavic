@@ -16,10 +16,32 @@
                     ng-model="vm.product.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="wallavicApp.product.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
+            <label class="control-label" data-translate="wallavicApp.product.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="vm.product.title" required ng-maxlength="25"/>
+            <div ng-show="editForm.cat.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.maxlength" data-translate="entity.validation.maxlength">
+                    The max length is 20 characteres.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label display-block" data-translate="wallavicApp.product.description" for="field_description">Description</label>
+            <input type="text" class="form-control description-input" name="description" id="field_description"
                     ng-model="vm.product.description"
-                     />
+                    ng-maxlength="150" />
+            <div class="description-number">(left {{150 - vm.product.description.length}})</div>
+            <div ng-show="editForm.cat.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.maxlength" data-translate="entity.validation.maxlength">
+                    The max length is 50 characteres.
+                </p>
+            </div>
         </div>
          <div class="form-group">
             <label class="control-label" data-translate="wallavicApp.product.cat" for="field_cat">Cat</label>

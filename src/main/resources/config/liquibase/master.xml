@@ -15,4 +15,6 @@
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170105135000_add_colum_money.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170110220900_add_column_sold_product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170212224200_add_title_Product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170213222200_change_type_description_to_text_Product" relativeToChangelogFile="false"/>
 </databaseChangeLog>

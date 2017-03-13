@@ -54,7 +54,8 @@ server:
         cookie:
             http-only: true
 
-filesDir: files/
+filesDir:   src\main\webapp\content\images\
+filesDirProd: target/www/content/images/
 
 # ===================================================================
 # JHipster specific properties
