@@ -54,7 +54,7 @@ server:
         cookie:
             http-only: true
 
-filesDir:   src\main\webapp\content\images\
+filesDir:   src/main/webapp/content/images/
 filesDirProd: target/www/content/images/
 
 # ===================================================================

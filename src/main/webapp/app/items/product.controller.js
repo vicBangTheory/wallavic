@@ -27,6 +27,7 @@
 
         vm.changeView = changeView;
 
+        //TODO remove products from other users
         loadAll();
 
         function loadAll () {
