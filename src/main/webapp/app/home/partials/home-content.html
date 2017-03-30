@@ -1,26 +1,53 @@
-<div class="">
-	<div infinite-scroll="vm.loadPage(vm.HomeSearchProducts.productVar.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
-		<div class="">
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 fix-heigh" ng-repeat="product in vm.HomeSearchProducts.getServiceVar().data">
-				<div class="contenedor">
-					<div class="reversible" ng-class="vm.class[$index]">
-						<div class="verso card-reverse">
-							<span class="card-title card-user">{{product.user.login}}</span>
-							<span class="card-description">{{product.description}}</span>
-							<span class="card-date">Upload date <br> {{product.uploadDate | date : format : dd/MMM/YYY}}</span>
-							<button type="button" class="btn btn-info btn-circle reverse" ng-click="vm.class[$index] = ''">-</button>
+
+<div >
+            <div infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last'] || !vm.control " infinite-scroll-use-document-bottom="true">
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 fix-heigh" ng-repeat="product in vm.products">
+					<div class="contenedor">
+						<div class="reversible" ng-class="vm.class[$index]">
+							<div class="verso card-reverse">
+								<span class="card-title card-user">{{product.user.login}}</span>
+								<span class="card-description">{{product.description}}</span>
+								<span class="card-date">Upload date <br> {{product.uploadDate | date : format : dd/MMM/YYY}}</span>
+								<button type="button" class="btn btn-info btn-circle reverse" ng-click="vm.class[$index] = ''">-</button>
+							</div>
+							<div class="cara">
+								<div class="">
+									<span class="card-title">{{product.title}}</span>
+									<span class="card-span-image"><img class="card-image" ng-src="content/images/{{product.url}}" alt="..."></span>
+									<button type="button" class="btn btn-info btn-circle" ng-click="vm.class[$index] = 'animation'">+</button>
+									<span class="card-price">{{product.price}}€</span>
+								</div>
+							</div>
 						</div>
-				   		<div class="cara">
-						    <div class="">
-				   				<span class="card-title">{{product.title}}</span>
-						      	<span class="card-span-image"><img class="card-image" ng-src="content/images/{{product.url}}" alt="..."></span>
-						       	<button type="button" class="btn btn-info btn-circle" ng-click="vm.class[$index] = 'animation'">+</button>
-						      	<span class="card-price">{{product.price}}€</span>
-						    </div>
-				   		</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
+            </div>
+        </div>
+
+
+
+
+		<!-- <div class="porquelodigoyo">
+		            <div infinite-scroll="vm.loadPage(vm.page + 1)" class="displ" infinite-scroll-disabled="vm.page >= vm.links['last'] || !vm.control " infinite-scroll-container='".porquelodigoyo"' infinite-scroll-distance='1' infinite-scroll-parent="true">
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 fix-heigh" ng-repeat="product in vm.products">
+							<div class="contenedor">
+								<div class="reversible" ng-class="vm.class[$index]">
+									<div class="verso card-reverse">
+										<span class="card-title card-user">{{product.user.login}}</span>
+										<span class="card-description">{{product.description}}</span>
+										<span class="card-date">Upload date <br> {{product.uploadDate | date : format : dd/MMM/YYY}}</span>
+										<button type="button" class="btn btn-info btn-circle reverse" ng-click="vm.class[$index] = ''">-</button>
+									</div>
+									<div class="cara">
+										<div class="">
+											<span class="card-title">{{product.title}}</span>
+											<span class="card-span-image"><img class="card-image" ng-src="content/images/{{product.url}}" alt="..."></span>
+											<button type="button" class="btn btn-info btn-circle" ng-click="vm.class[$index] = 'animation'">+</button>
+											<span class="card-price">{{product.price}}€</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		            </div>
+		        </div> -->

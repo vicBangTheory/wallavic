@@ -14,12 +14,15 @@ public class ProductFilterDTO implements Serializable{
 
     private List<ProductCat> cats;
 
+    private Boolean sold;
+
     private Double maxPrice;
 
     private Double minPrice;
 
     public ProductFilterDTO(List<ProductCat> cats, Double maxPrice, Double minPrice) {
         this.cats = cats;
+        this.sold = false;
         this.maxPrice = maxPrice;
         this.minPrice = minPrice;
     }
@@ -50,6 +53,14 @@ public class ProductFilterDTO implements Serializable{
 
     public void setMinPrice(Double minPrice) {
         this.minPrice = minPrice;
+    }
+
+    public Boolean getSold() {
+        return sold;
+    }
+
+    public void setSold(Boolean sold) {
+        this.sold = sold;
     }
 
     @Override

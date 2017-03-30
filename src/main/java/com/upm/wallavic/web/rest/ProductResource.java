@@ -143,22 +143,7 @@ public class ProductResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-//    /**
-//     * GET  /products : get all the filtered products .
-//     *
-//     * @param pageable the pagination information
-//     * @return the ResponseEntity with status 200 (OK) and the list of products in body
-//     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
-//     */
-//    @GetMapping("/filtered-products")
-//    @Timed
-//    public ResponseEntity<List<Product>> getAllFilterredProducts(@ApiParam Pageable pageable,@ApiParam Double maxMoney, @ApiParam Double minMoney, @ApiParam ProductCat cat)
-//        throws URISyntaxException {
-//        log.debug("REST request to get a page of Products");
-//        Page<Product> page = productService.findAll(pageable);
-//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
-//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-//    }
+
 
     /**
      * GET  /products/:id : get the "id" product.
@@ -206,7 +191,7 @@ public class ProductResource {
     @PostMapping("/filtered_products")
     @Timed
     public ResponseEntity<List<Product>> getFilteredProducts(@ApiParam Pageable pageable,@Valid @RequestBody ProductFilterDTO productDto) throws URISyntaxException {
-        log.debug("esta vez si que deberia coger el puto dto: {}", productDto);
+        log.debug("esta vez si que deberia coger el  dto: {}", productDto);
         log.debug("pagination: {}", pageable);
 
         Page<Product> page = productService.filterProducts(pageable, productDto);

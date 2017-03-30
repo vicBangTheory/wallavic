@@ -11,7 +11,7 @@
         var service = {
             setItemImage: setItemImage,
             updateItemImage: updateItemImage,
-            getProductFiltered: getProductFiltered
+            getProductsWithFilters: getProductsWithFilters
         };
 
         return service;
@@ -67,7 +67,9 @@
             });
         }
 
-        function getProductFiltered(productDto, page, size, sortBy){
+        function getProductsWithFilters(productDto, page, size, sortBy){
+            console.log(productDto);
+            console.log(page);
             return $http({
                 url: 'api/filtered_products',
                 method: 'POST',
@@ -75,6 +77,6 @@
                 params: {page: page, size: size, sort: sortBy}
             });
         }
-        
+
     }
 })();
